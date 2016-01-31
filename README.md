@@ -1,5 +1,5 @@
-# YepSQL ![ScreenShot](https://api.travis-ci.org/LionsHead/YepSQL.svg)
-SQL templating helper for PHP inspired by yesql.
+# YepSQL [![Build Status](https://travis-ci.org/LionsHead/YepSQL.svg?branch=master)](https://travis-ci.org/LionsHead/YepSQL)
+SQL templating helper for PHP inspired by [yesql](https://github.com/krisajenkins/yesql).
 
 Requirements:
   php >= 5.4;
