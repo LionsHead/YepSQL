@@ -27,6 +27,7 @@ SET `user_name` = :user_name
 WHERE `user_id` = :user_id
 ````
 
+And call them in your code.
 Notice: "query-name" is converted to "query_name", php does not support this name methods.
 
 ### example:
@@ -34,23 +35,23 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 ````php
 
   $builder = new \YepSQL\Builder(
-    new PDO_instance('sqlite::memory:'),    // instance of PDO
+    new PDO_instance('sqlite::memory:'),    // you instance of PDO
     '/path/to/file.sql'                     // file with queries
   );
 
-  $user_id = 128; // request arguments
 
-  // query 'SELECT * FROM `table`  WHERE `user_id` = 128'
+  // prepare and send query "getUsersInfo" = SELECT * FROM `table`  WHERE `user_id` = 128;
+  $user_id = 128; // request arguments
   $stmt = $builder->getUsersInfo($user_id);
-  // return PDOStatement instance
+  // returned PDOStatement instance
   $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  //
-
+  // send query "updateUserName" = UPDATE `table` SET `user_name` = 'NewUSerName' WHERE `user_id` = '128';
   $builder->updateUserName([
      ':user_name' => 'NewUSerName',
      ':user_id' => 128
   ]);
 
-
 ````
+
+Enjoy.
