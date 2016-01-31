@@ -9,17 +9,22 @@ Requirements:
 Create a file containing your SQL queries
 ### file example:
 ````sql
--- name: sql-query-name
+-- name: sqlQueryName
 -- query annotation
 SELECT count(*)
-FROM `work_test`
+FROM `table`
 
--- name: selectAll
--- request annotation 1
--- request annotation 2
+-- name: getUsersInfo
+-- request annotation 1 ...
+-- request annotation 2 ...
 SELECT *
-FROM table
+FROM `table`
 WHERE user_id = ?
+
+-- name: updateUserName
+UPDATE `table`
+SET `user_name` = :user_name
+WHERE user_id = :user_id
 ````
 
 Notice: "query-name" is converted to "query_name", php does not support this name methods.
@@ -29,10 +34,18 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 ````php
 
   $builder = new \YepSQL\Builder(
-    new PDO_instance('sqlite::memory:'), // instance of PDO
-    '/path/to/file.sql' // file with queries
+    new PDO_instance('sqlite::memory:'),    // instance of PDO
+    '/path/to/file.sql'                     // file with queries
   );
 
   $user_id = 128; // request arguments
-  $user_data = $builder->selectAll($user_id)->fetch(PDO::FETCH_ASSOC);
+  $user_data = $builder->getUsersInfo($user_id)->fetch(PDO::FETCH_ASSOC);
+
+  // ...
+  
+  $builder->updateUserName([
+     ':user_name' => 'NewUSerName',
+     ':user_id' => 128
+  ]);
+
 ````
