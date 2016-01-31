@@ -27,11 +27,12 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 ### example:
 
 ````php
-  $filepath = '/path/to/file.sql';
-  $pdo_instance = new PDO_instance('sqlite::memory:');
-  $user_id = 128;
 
-  $builder = new \YepSQL\Builder($pdo_instance, $filepath);
+  $builder = new \YepSQL\Builder(
+    new PDO_instance('sqlite::memory:'), // instance of PDO
+    '/path/to/file.sql' // file with queries
+  );
 
+  $user_id = 128; // request arguments
   $user_data = $builder->selectAll($user_id)->fetch(PDO::FETCH_ASSOC);
 ````
