@@ -19,12 +19,12 @@ FROM `table`
 -- request annotation 2 ...
 SELECT *
 FROM `table`
-WHERE user_id = ?
+WHERE `user_id` = ?
 
 -- name: updateUserName
 UPDATE `table`
 SET `user_name` = :user_name
-WHERE user_id = :user_id
+WHERE `user_id` = :user_id
 ````
 
 Notice: "query-name" is converted to "query_name", php does not support this name methods.
@@ -39,13 +39,18 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
   );
 
   $user_id = 128; // request arguments
-  $user_data = $builder->getUsersInfo($user_id)->fetch(PDO::FETCH_ASSOC);
 
-  // ...
-  
+  // query 'SELECT * FROM `table`  WHERE `user_id` = 128'
+  $stmt = $builder->getUsersInfo($user_id);
+  // return PDOStatement instance
+  $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  //
+
   $builder->updateUserName([
      ':user_name' => 'NewUSerName',
      ':user_id' => 128
   ]);
+
 
 ````
