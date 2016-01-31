@@ -1,5 +1,4 @@
-# YepSQL
-![ScreenShot](https://api.travis-ci.org/LionsHead/YepSQL.svg)
+# YepSQL ![ScreenShot](https://api.travis-ci.org/LionsHead/YepSQL.svg)
 SQL templating helper for PHP inspired by yesql.
 
 Requirements:
@@ -15,7 +14,7 @@ Create a file containing your SQL queries
 SELECT count(*)
 FROM `work_test`
 
--- name: select-all
+-- name: selectAll
 -- request annotation 1
 -- request annotation 2
 SELECT *
@@ -34,5 +33,5 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 
   $builder = new \YepSQL\Builder($pdo_instance, $filepath);
 
-  $user_data = $builder->select_all($user_id)->fetch(PDO::FETCH_ASSOC);
+  $user_data = $builder->selectAll($user_id)->fetch(PDO::FETCH_ASSOC);
 ````
