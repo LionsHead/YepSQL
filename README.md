@@ -11,20 +11,19 @@ Create a file containing your SQL queries
 ````sql
 -- name: sqlQueryName
 -- query annotation
-SELECT count(*)
-FROM `table`
+SELECT count(*) FROM `table`;
 
 -- name: getUsersInfo
 -- request annotation 1 ...
 -- request annotation 2 ...
 SELECT *
 FROM `table`
-WHERE `user_id` = ?
+WHERE `user_id` = ? ;
 
 -- name: updateUserName
 UPDATE `table`
 SET `user_name` = :user_name
-WHERE `user_id` = :user_id
+WHERE `user_id` = :user_id ;
 ````
 
 And call them in your code.
