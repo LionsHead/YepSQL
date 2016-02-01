@@ -26,7 +26,7 @@ class Builder
      * @param  string    $name - query name
      * @param  array     $args - query params
      */
-    public function __call($name, $args = [])
+    public function __call($name, array $args = [])
     {
         if (!isset($this->queries[$name])) {
             throw new BuilderException('Query "'. $name .'" does not exist', 4);
