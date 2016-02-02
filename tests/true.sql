@@ -16,7 +16,8 @@ SELECT count(*) FROM `work_test`;
 
 
 
-
+ -- name: newValue
+ UPDATE `work_test` SET `value` = :value WHERE `key` = :key;
 
 
 -- name: update
