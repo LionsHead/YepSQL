@@ -1,6 +1,6 @@
 -- name: user-request
--- request annotation
-SQL REQUEST
+-- request invalid
+SQL REQUEST;
 
 
 -- name: select-all
@@ -8,18 +8,11 @@ SQL REQUEST
 -- request annotation 2
 SELECT *
 FROM table
-WHERE user_id = :user_id
+WHERE user_id = :user_id;
 -- request annotation 1511411
 
-
-
-
-
-
-
-
-
-
+ -- name: workTest
+SELECT count(*) FROM `work_test`;
 
 
 
@@ -27,12 +20,13 @@ WHERE user_id = :user_id
 
 
 -- name: update
-UPDATE REQUEST FROM TABLE
+ -- request invalid
+UPDATE REQUEST FROM TABLE;
 
 -- name: work-test
 SELECT count(*)
-FROM `work_test`
+FROM `work_test`;
 
 -- name: work-fail-test
 SELECT count(*)
-FROM `work_test_incorreasdksald`
+FROM `work_test_incorreasdksald`;

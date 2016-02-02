@@ -5,7 +5,7 @@ use \YepSQL\BuilderException;
 use \PDO as PDO_instance;
 use \PDOException as PDO_exception;
 
-class BuilterTest extends \PHPUnit_Framework_TestCase {
+class BuilderTest extends \PHPUnit_Framework_TestCase {
 
     public function testParseTrueFile()
     {
@@ -52,42 +52,4 @@ class BuilterTest extends \PHPUnit_Framework_TestCase {
         $builder->query_unknow();
     }
 
-    public function testWork()
-    {
-        // work_test
-        $pdo = new PDO_instance('sqlite::memory:', null, null, [\PDO::ATTR_ERRMODE  => \PDO::ERRMODE_EXCEPTION]);
-        $pdo->query('CREATE TABLE `work_test` (
-            `key` varchar(128) DEFAULT NULL,
-            `value` varchar(256) DEFAULT NULL
-        );');
-
-        $pdo->query("INSERT INTO `work_test` (`key`, `value`) VALUES ('key1', 'val1');");
-        $pdo->query("INSERT INTO `work_test` (`key`, `value`) VALUES ('key2', 'val2');");
-        $pdo->query("INSERT INTO `work_test` (`key`, `value`) VALUES ('key3', 'val3');");
-
-        $count = $pdo->query('SELECT count(*) FROM `work_test`;');
-        $count = $count->fetch();
-        $builder = new Builder($pdo);
-
-        $this->assertInstanceOf('\YepSQL\Builder', $builder); #
-
-        $queries = $builder->loadFromFile(__DIR__.'/true.sql');
-
-        $this->assertEquals(5, count($queries)); #
-        $this->assertEquals($count[0], $builder->work_test()->fetchColumn()); #
-    }
-
-    public function testWorkFail()
-    {
-        // work_test
-        $pdo = new PDO_instance('sqlite::memory:', null, null, [\PDO::ATTR_ERRMODE  => \PDO::ERRMODE_EXCEPTION]);
-        $builder = new Builder($pdo);
-        $this->assertInstanceOf('\YepSQL\Builder', $builder); #
-
-        $builder->loadFromFile(__DIR__.'/true.sql');
-        /* Exception */
-        $this->setExpectedException('PDOException'); #
-
-        $builder->work_fail_test();
-    }
 }
