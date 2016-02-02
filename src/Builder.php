@@ -31,8 +31,8 @@ class Builder
         if (!isset($this->queries[$name])) {
             throw new BuilderException('Query "'. $name .'" does not exist', 4);
         }
-        $r = $this->pdo->prepare($this->queries[$name]);
-        $r->execute($args);
+        $r = $this->pdo->prepare($this->queries[$name]); 
+        $r->execute(empty($args) ? $args : $args[0]);
         return $r;
     }
 
