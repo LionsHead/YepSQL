@@ -49,7 +49,7 @@ class Builder
         $tag = [];
         foreach ($data as $line => $string) {
             // // remove extra characters (windows \r)
-            // $string = str_replace("\r", '', $string);
+            $string = str_replace("\r", '', $string);
             if (preg_match("/^\s*--\s*name:\s*([a-zA-Z0-9_-]+)/", $string, $name)) {
                 // complete previous query
                 if (!empty($tag)) $this->createQueryWithTags($tag);
@@ -58,12 +58,12 @@ class Builder
                     'name' => strtr($name[1], '-', '_'),
                     'query' => null
                 ];
-            } elseif (empty($tag) && !preg_match('/^\s*--/', $string)) {
-                // invalid file:
-                throw new BuilderException('Parse error: the query definition without a "name:" line '.$line, 2);
             } elseif (preg_match('/^\s*--/', $string) || empty($string)) {
                 // sql comment or empty line
                 // do nothing
+            } elseif (empty($tag) && !preg_match('/^\s*--/', $string)) {
+                // invalid file:
+                throw new BuilderException('Parse error: the query definition without a "name:" line '.$line, 2);
             } else {
                 // new query line
                 $tag['query'] .= $string."\n";
