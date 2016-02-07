@@ -31,7 +31,7 @@ class Builder
         if (!isset($this->queries[$name])) {
             throw new BuilderException('Query "'. $name .'" does not exist', 4);
         }
-        $r = $this->pdo->prepare($this->queries[$name]); 
+        $r = $this->pdo->prepare($this->queries[$name]);
         $r->execute(empty($args) ? $args : $args[0]);
         return $r;
     }
@@ -48,7 +48,7 @@ class Builder
         $data = explode("\n", file_get_contents($filepath));
         $tag = [];
         foreach ($data as $line => $string) {
-            // // remove extra characters (windows \r)
+            // remove extra characters (windows \r)
             $string = str_replace("\r", '', $string);
             if (preg_match("/^\s*--\s*name:\s*([a-zA-Z0-9_-]+)/", $string, $name)) {
                 // complete previous query

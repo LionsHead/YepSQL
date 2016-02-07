@@ -33,7 +33,7 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 
 ````php
 
-  $builder = new \YepSQL\Builder(
+  $sql_template = new \YepSQL\Builder(
     new PDO_instance('sqlite::memory:'),    // you instance of PDO
     '/path/to/file.sql'                     // file with queries
   );
@@ -41,12 +41,12 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 
   // prepare and send query "getUsersInfo" = SELECT * FROM `table`  WHERE `user_id` = 128;
   $user_id = 128; // request arguments
-  $stmt = $builder->getUsersInfo($user_id);
+  $stmt = $sql_template->getUsersInfo($user_id);
   // returned PDOStatement instance
   $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
   // send query "updateUserName" = UPDATE `table` SET `user_name` = 'NewUSerName' WHERE `user_id` = '128';
-  $builder->updateUserName([
+  $sql_template->updateUserName([
      ':user_name' => 'NewUSerName',
      ':user_id' => 128
   ]);
