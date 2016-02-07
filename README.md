@@ -39,7 +39,8 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
   );
 
 
-  // prepare and send query "getUsersInfo" = SELECT * FROM `table`  WHERE `user_id` = 128;
+  // prepare SELECT * FROM `table` WHERE `user_id` = ? ;
+  // and send query "getUsersInfo" = SELECT * FROM `table`  WHERE `user_id` = 128;
   $user_id = 128; // request arguments
   $stmt = $sql_template->getUsersInfo($user_id);
   // returned PDOStatement instance
