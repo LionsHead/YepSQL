@@ -4,6 +4,9 @@ SQL templating helper for PHP inspired by [yesql](https://github.com/krisajenkin
 Requirements:
   php >= 5.4;
   pdo_extension;
+  
+Install:
+  composer require yepsql/yepsql
 
 ## Usage
 Create a file containing your SQL queries
