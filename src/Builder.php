@@ -9,6 +9,15 @@ class Builder
     private $pdo;
     private $queries = [];
 
+    /* Map PHP types to PDO types */
+    private $type_map = [
+        'is_bool'   => PDO::PARAM_BOOL,
+        'is_float'  => PDO::PARAM_STR,
+        'is_int'    => PDO::PARAM_INT,
+        'is_null'   => PDO::PARAM_NULL,
+        'is_string' => PDO::PARAM_STR,
+    ];
+
     /**
      * @param  object      $pdo      instance of PDO
      * @param  string      $filepath the path to file with queries
@@ -31,8 +40,24 @@ class Builder
         if (!isset($this->queries[$name])) {
             throw new BuilderException('Query "'. $name .'" does not exist', 4);
         }
+
         $r = $this->pdo->prepare($this->queries[$name]);
-        $r->execute(empty($args) ? $args : $args[0]);
+        $args = empty($args) ? $args : $args[0];
+
+        foreach ($args as $argk => $argv) {
+            foreach($this->type_map as $php_type => $pdo_type) {
+                if ($php_type($argv)) {
+                    $r->bindValue($argk, $argv, $pdo_type);
+                    break;
+                }
+
+                /* Try to bind it anyway if we didn't find a match in the type
+                   map */
+                $r->bindValue($argk, $argv);
+            }
+        }
+
+        $r->execute();
         return $r;
     }
 
@@ -71,7 +96,7 @@ class Builder
         }
         $this->createQueryWithTags($tag);
         return $this->queries;
-	}
+    }
 
     /**
      * Create new query
