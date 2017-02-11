@@ -2,3 +2,4 @@ vendor/*
 bin/*
 Vagrantfile
 .DS_Store
+composer.lock

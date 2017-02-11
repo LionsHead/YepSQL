@@ -2,9 +2,9 @@
 SQL templating helper for PHP inspired by [yesql](https://github.com/krisajenkins/yesql).
 
 Requirements:
-  php >= 5.4;
+  php >= 5.6;
   pdo_extension;
-  
+
 Install:
   composer require yepsql/yepsql
 
