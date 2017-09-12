@@ -10,7 +10,7 @@ Install:
 
 ## Usage
 Create a file containing your SQL queries
-### file example:
+### File example:
 ````sql
 -- name: sqlQueryName
 -- query annotation
@@ -32,7 +32,7 @@ WHERE `user_id` = :user_id ;
 And call them in your code.
 Notice: "query-name" is converted to "query_name", php does not support this name methods.
 
-### example:
+### Example:
 
 ````php
 
@@ -43,13 +43,15 @@ Notice: "query-name" is converted to "query_name", php does not support this nam
 
 
   // prepare SELECT * FROM `table` WHERE `user_id` = ? ;
-  // and send query "getUsersInfo" = SELECT * FROM `table`  WHERE `user_id` = 128;
+  // and send query "getUsersInfo":
+  // SELECT * FROM `table`  WHERE `user_id` = 128;
   $user_id = 128; // request arguments
   $stmt = $sql_template->getUsersInfo($user_id);
   // returned PDOStatement instance
   $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  // send query "updateUserName" = UPDATE `table` SET `user_name` = 'NewUSerName' WHERE `user_id` = '128';
+  // send query "updateUserName": 
+  // UPDATE `table` SET `user_name` = 'NewUSerName' WHERE `user_id` = '128';
   $sql_template->updateUserName([
      ':user_name' => 'NewUSerName',
      ':user_id' => 128
